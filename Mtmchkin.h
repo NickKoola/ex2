@@ -5,9 +5,8 @@
 #ifndef EX2_GAME_H
 #define EX2_GAME_H
 #include "Card.h"
-
 #include <iostream>
-
+const int FIRST_INDEX = 0;
 /*
  * GameStatus:
  * MidGame - The game is still active and the player continues to encounter cards.
@@ -17,6 +16,7 @@
 enum class GameStatus{Win, Loss, MidGame};
 
 class Mtmchkin {
+
 public:
 
     /*
@@ -31,6 +31,7 @@ public:
     Mtmchkin(const char* playerName, const Card* cardsArray, int numOfCards);
 
     ~Mtmchkin();
+    
     Mtmchkin(const Mtmchkin& other) = default;
     Mtmchkin& operator=(const Mtmchkin& other) = default;
 
@@ -62,13 +63,16 @@ public:
     GameStatus getGameStatus() const;
 
     //TODO: complete the Mtmchkin class.
-
 private:
     //TODO: complete the Mtmchkin class.
-    Player m_player;
-    GameStatus m_gameStatus;
-    const Card* m_deck;
     int m_numOfCards;
+    GameStatus m_gameStatus;
+    Player m_player;
+    int m_currCardIndex;
+    const Card* m_deck;
+
+
+
 
 };
 

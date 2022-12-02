@@ -1,41 +1,38 @@
 #include "Player.h"
-#include "utilities.h"
-
-#include <iostream>
 
 using  std::string;
 
 Player::Player(string name, int maxHP, int force)
 {
     if(maxHP <= 0) {
-        m_maxHP = 100;
+        m_maxHP = DEFAULT_MAX_HP;
     }
     else {
         m_maxHP = maxHP;
     }
 
     if(force < 0){
-        m_force = 5;
+        m_force = DEFAULT_FORCE;
     }
     else {
         m_force = force;
     }
 
     m_name = name; 
-    m_level = 1;
+    m_level = STARTING_LEVEL;
     m_hp = m_maxHP;
-    m_coins = 0;
+    m_coins = STARTING_COINS;
 }
 
-void Player::printInfo()  // TODO
+void Player::printInfo () 
 {
     printPlayerInfo(m_name.c_str(), this->m_level,
                     this->m_force, this->m_hp, this->m_coins);
 }
 
 void Player::levelUp() {
-    if(m_level < 10){
-        m_level++;
+    if(m_level < MAX_LEVEL){
+        ++m_level;
     }
 }
 
@@ -72,7 +69,7 @@ void Player::damage(int damageRecieved) {
 }
 
 bool Player::isKnockedOut() const {
-    return (m_hp == 0);
+    return (m_hp <= 0);
 }
 
 void Player::addCoins(int coinsRecieved) {
@@ -81,23 +78,17 @@ void Player::addCoins(int coinsRecieved) {
     }
 }
 
-bool Player::pay(int price) { // what if price is negative
-    if(m_coins >= price) {
-        m_coins -= price;
-        return true;
+bool Player::pay(int price) { 
+    if(price >= 0) {
+        if(m_coins >= price) {
+            m_coins -= price;
+            return true;
+        }
+        return false;
     }
-    return false;
+    return true;
 }
 
 int Player::getAttackStrength() const {
     return (m_force + m_level);
 }
-
-
-/*
-int main() {
-    string name1 = "nick";
-   // Player p1 = Player(name1, 132, 3);
-    //p1.printInfo();
-}
-*/
